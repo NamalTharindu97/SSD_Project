@@ -1,41 +1,45 @@
 .SidePanel-Container {
-	display: flex;
-	justify-content: center;
+  display: flex;
+  justify-content: flex-start; /* Align sidebar to the start (left) */
+  flex: 1;
+  padding-left: 20px; /* Add some left padding for spacing */
+}
 
-	flex: 1;
-}
 .SideBar {
-	display: flex;
-	justify-content: center;
-	width: 200px;
-	margin: 20px;
-	margin-top: 100px;
-	border-radius: 20px;
-	background-color: transparent;
-	box-shadow: 0px 0px 12px rgb(255, 255, 255);
+  width: 200px;
+  margin-top: 100px;
+  border-radius: 20px;
+  background-color: transparent;
+  box-shadow: 0px 0px 12px rgb(255, 255, 255);
 }
+
 ul {
-	list-style-type: none;
-	padding: 0;
-	text-decoration: none;
+  list-style-type: none;
+  padding: 0;
 }
 
 li {
-	margin-bottom: 10px;
-	cursor: pointer;
-	text-decoration: none;
-	color: var(--white2);
+  padding: 10px 15px;
+  cursor: pointer;
+  color: var(--white2);
 }
 
 li:hover {
-	color: #00e676;
+  color: #00e676;
+}
+
+li.active {
+  color: white;
+  background: #00e676;
+  border-radius: 5px;
+  margin-bottom: 0px 20px;
 }
 
 a {
-	text-decoration: none;
-	color: inherit; /* Ensures that the link color is inherited from the parent */
+  text-decoration: none;
+  color: inherit; /* Ensures that the link color is inherited from the parent */
 }
 
 a:hover {
-	color: #00e676;
+  color: #00e676;
 }
