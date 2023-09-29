@@ -57,7 +57,7 @@ const CreateEmployees = async (req, res) => {
   }
 };
 // @desc update employee
-// @Route http://localhost:5000/api/v1/employee/
+// @Route http://localhost:5000/api/v1/employee/:id
 const UpdateEmployees = async (req, res) => {
   try {
     const employee = await Employee.findById(req.params.id);
@@ -75,8 +75,20 @@ const UpdateEmployees = async (req, res) => {
     res.status(500).json({ error: "internal server Error" });
   }
 };
-const deleteEmployees = () => {
-  console.log("this is deleteEmployees");
+// @desc delete employee
+// @Route http://localhost:5000/api/v1/employee/:id
+const deleteEmployees = async (req, res) => {
+  try {
+    const delete_employee = await Employee.findByIdAndDelete(req.params.id);
+    if (!delete_employee) {
+      res.status(404).json({ error: "Employee Not Found" });
+    }
+    res
+      .status(200)
+      .json({ message: "Employee Deleted Success", delete_employee });
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 };
 
 module.exports = {
