@@ -17,13 +17,25 @@
 ul {
 	list-style-type: none;
 	padding: 0;
+	text-decoration: none;
 }
 
 li {
 	margin-bottom: 10px;
 	cursor: pointer;
+	text-decoration: none;
+	color: var(--white2);
 }
 
 li:hover {
+	color: #00e676;
+}
+
+a {
+	text-decoration: none;
+	color: inherit; /* Ensures that the link color is inherited from the parent */
+}
+
+a:hover {
 	color: #00e676;
 }

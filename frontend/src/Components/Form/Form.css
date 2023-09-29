@@ -1,0 +1,44 @@
+.Form-Container {
+	height: 83vh;
+	margin-right: 20px;
+	border-radius: 15px;
+	background-color: transparent;
+	box-shadow: 0px 0px 12px rgb(255, 255, 255);
+	padding: 50px;
+}
+/* EmployeeForm.css */
+.Employee-Form {
+	max-width: 800px;
+	background-color: transparent;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	background-color: transparent;
+}
+
+label {
+	margin-bottom: 5px;
+	color: aliceblue;
+}
+
+input {
+	margin-bottom: 10px;
+	padding: 8px;
+	border: 1px solid white;
+	background-color: transparent;
+}
+
+.submit_btn {
+	background-color: #2ecc71;
+	width: 300px;
+	color: white;
+	padding: 10px;
+	border: none;
+	cursor: pointer;
+}
+
+button:hover {
+	background-color: #27ae60;
+}
