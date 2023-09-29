@@ -26,7 +26,7 @@ const getEmploye = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
-// @desc Get one employees
+// @desc create employee
 // @Route http://localhost:5000/api/v1/employee/
 const CreateEmployees = async (req, res) => {
   const { name, age, phone, nic, email, password } = req.body;
@@ -56,9 +56,24 @@ const CreateEmployees = async (req, res) => {
       .json({ error: "Employee Not Created Internal Server Error" });
   }
 };
+// @desc update employee
+// @Route http://localhost:5000/api/v1/employee/
+const UpdateEmployees = async (req, res) => {
+  try {
+    const employee = await Employee.findById(req.params.id);
+    if (!employee) {
+      res.status(404).json({ error: "Employee Not Found" });
+    }
+    const updateEmployee = await Employee.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
 
-const UpdateEmployees = () => {
-  console.log("this is UpdateEmployees");
+    res.status(200).json({ error: "Employee Update Success", updateEmployee });
+  } catch (error) {
+    res.status(500).json({ error: "internal server Error" });
+  }
 };
 const deleteEmployees = () => {
   console.log("this is deleteEmployees");
