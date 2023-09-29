@@ -1,6 +1,7 @@
 // List.js
 import React from "react";
 import "./List.css";
+import { Link } from "react-router-dom";
 
 const List = ({ data, deleteEmployee }) => {
 	return (
@@ -25,7 +26,10 @@ const List = ({ data, deleteEmployee }) => {
 							<td>{employee.nic}</td>
 							<td>{employee.email}</td>
 							<td>
-								<button>Update</button>
+								<Link to={`/update/${employee._id}`}>
+									<button>Update</button>
+								</Link>
+
 								<button
 									onClick={() => deleteEmployee(employee._id)}
 								>

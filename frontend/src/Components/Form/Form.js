@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Form.css";
 
-const Form = ({ addEmployee }) => {
+const Form = ({ addEmployee, employee, updateEmploye }) => {
 	const [formData, setFormData] = useState({
 		name: "",
 		age: 0,
@@ -10,6 +10,20 @@ const Form = ({ addEmployee }) => {
 		email: "",
 		password: "",
 	});
+
+	useEffect(() => {
+		setFormData(
+			employee || {
+				name: "",
+				age: 0,
+				phone: "",
+				nic: "",
+				email: "",
+				password: "",
+			}
+		);
+	}, [employee]);
+
 	const handleChange = (e) => {
 		setFormData({
 			...formData,
@@ -21,20 +35,24 @@ const Form = ({ addEmployee }) => {
 		e.preventDefault();
 
 		try {
-			await addEmployee(formData);
-
-			setFormData({
-				name: "",
-				age: 0,
-				phone: "",
-				nic: "",
-				email: "",
-				password: "",
-			});
+			if (employee) {
+				await updateEmploye(formData);
+			} else if (addEmployee) {
+				await addEmployee(formData);
+				setFormData({
+					name: "",
+					age: 0,
+					phone: "",
+					nic: "",
+					email: "",
+					password: "",
+				});
+			}
 		} catch (error) {
-			console.error("Error adding employee:", error);
+			console.error("Error handling form submission:", error);
 		}
 	};
+
 	return (
 		<div className="Form-Container">
 			<div className="Employee-Form">
