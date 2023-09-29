@@ -6,9 +6,8 @@ const SidePanel = () => {
 		<div className="SidePanel-Container">
 			<div className="SideBar">
 				<ul>
-					<li>Item 1</li>
-					<li>Item 2</li>
-					<li>Item 3</li>
+					<li>Employee LIST</li>
+					<li>Employee ADD</li>
 				</ul>
 			</div>
 		</div>
