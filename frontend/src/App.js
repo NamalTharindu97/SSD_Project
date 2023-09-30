@@ -6,6 +6,7 @@ import "./index.css";
 import LoginPage from "./Pages/LoginPage";
 
 function App() {
+
 	return (
 		<div className="App">
 			<Router>
@@ -18,6 +19,7 @@ function App() {
 			</Router>
 		</div>
 	);
+
 }
 
 export default App;

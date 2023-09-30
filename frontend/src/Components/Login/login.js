@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
+
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
@@ -63,6 +64,7 @@ const Login = () => {
 			</div>
 		</div>
 	);
+
 };
 
 export default Login;
