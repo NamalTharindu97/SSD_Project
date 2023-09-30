@@ -97,10 +97,33 @@ const deleteEmployees = async (req, res) => {
 	}
 };
 
+// @desc Login
+// @Route http://localhost:5000/api/v1/employee/login
+const login = async (req, res) => {
+	const { email, password } = req.body;
+
+	try {
+		const employee = await Employee.findOne({ email, password });
+
+		if (!employee) {
+			return res.status(401).json({ error: "Invalid credentials" });
+		}
+
+		// Set a cookie upon successful login
+		req.session.user = employee;
+		res.cookie("user", employee, { httpOnly: true }); // Include this line
+
+		res.status(200).json({ message: "Login successful" });
+	} catch (error) {
+		res.status(500).json({ error: "Internal Server Error" });
+	}
+};
+
 module.exports = {
 	getEmployees,
 	getEmploye,
 	CreateEmployees,
 	UpdateEmployees,
 	deleteEmployees,
+	login,
 };
