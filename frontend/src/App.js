@@ -11,8 +11,8 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<DashboardPage />} />
+          <Route path="/login" exact element={<LoginPage />} />
           <Route path="/add" element={<EmployeADD />} />
-          <Route path="/login" element={<LoginPage />} />
           <Route path="/update/:id" element={<EmployeeUpdate />} />
         </Routes>
       </Router>
