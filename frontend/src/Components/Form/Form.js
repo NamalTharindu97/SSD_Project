@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import validator from "validator";
 import "./Form.css";
 
 const Form = ({ addEmployee, employee, updateEmploye }) => {
@@ -23,16 +24,27 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 			}
 		);
 	}, [employee]);
-	//React XSS
+
 	const handleChange = (e) => {
+		const { name, value } = e.target;
+
+		// Validate and sanitize inputs using validator to prevent XSS attacks
+		const sanitizedValue = validator.escape(value);
+
 		setFormData({
 			...formData,
-			[e.target.name]: e.target.value,
+			[name]: sanitizedValue,
 		});
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+
+		// Perform input validation before submitting for preventing XSS attacks
+		if (!isValidData(formData)) {
+			console.error("Invalid form data");
+			return;
+		}
 
 		try {
 			if (employee) {
@@ -53,6 +65,48 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 		}
 	};
 
+	const isValidData = (data) => {
+		// Validate name (non-empty)
+		if (!validator.isLength(data.name.trim(), { min: 1 })) {
+			console.error("Name is required");
+			return false;
+		}
+
+		// Validate age (positive integer)
+		if (!validator.isInt(String(data.age), { min: 1 })) {
+			console.error("Invalid age");
+			return false;
+		}
+
+		// Validate phone number (numeric with optional + symbol)
+		if (
+			!validator.isMobilePhone(data.phone, "any", { strictMode: false })
+		) {
+			console.error("Invalid phone number");
+			return false;
+		}
+
+		// Validate NIC (alphanumeric)
+		if (!validator.isAlphanumeric(data.nic)) {
+			console.error("Invalid NIC");
+			return false;
+		}
+
+		// Validate email format
+		if (!validator.isEmail(data.email)) {
+			console.error("Invalid email format");
+			return false;
+		}
+
+		// Validate password (at least 8 characters)
+		if (!validator.isLength(data.password, { min: 8 })) {
+			console.error("Password must be at least 8 characters");
+			return false;
+		}
+
+		return true;
+	};
+
 	return (
 		<div className="Form-Container">
 			<div className="Employee-Form">
@@ -62,8 +116,8 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="text"
 						id="name"
 						name="name"
-						// REACT XSS
-						value={formData.name}
+						//use 'defaultValue' insted of 'value' for privent XSS attacks
+						defaultValue={formData.name}
 						onChange={handleChange}
 					/>
 
@@ -72,8 +126,8 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="number"
 						id="age"
 						name="age"
-						// REACT XSS
-						value={formData.age}
+						//use 'defaultValue' insted of 'value' for privent XSS attacks
+						defaultValue={formData.age}
 						onChange={handleChange}
 					/>
 
@@ -82,8 +136,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="tel"
 						id="phone"
 						name="phone"
-						// REACT XSS
-						value={formData.phone}
+						defaultValue={formData.phone}
 						onChange={handleChange}
 					/>
 
@@ -92,7 +145,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="text"
 						id="nic"
 						name="nic"
-						value={formData.nic}
+						defaultValue={formData.nic}
 						onChange={handleChange}
 					/>
 
@@ -101,7 +154,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="email"
 						id="email"
 						name="email"
-						value={formData.email}
+						defaultValue={formData.email}
 						onChange={handleChange}
 					/>
 
@@ -110,7 +163,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="password"
 						id="password"
 						name="password"
-						value={formData.password}
+						defaultValue={formData.password}
 						onChange={handleChange}
 					/>
 

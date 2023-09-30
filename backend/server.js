@@ -9,16 +9,19 @@ const app = express();
 dbConnection();
 const PORT = process.env.PORT || 5001;
 
-//middlewares
 //Node.js DOS
+
 //Security Misconfigurations
+//configure cors properly for privent security misconfigurations
+const allowedOrigins = ["http://localhost:3000"];
 app.use(
 	cors({
-		origin: "http://localhost:3000",
+		origin: allowedOrigins,
 		credentials: true,
 	})
 );
-app.use(express.json());
+//limit the JSON payload size for privent security misconfigurations
+app.use(express.json({ limit: "1mb" }));
 app.use(cookieParser());
 app.use(
 	session({
