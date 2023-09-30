@@ -1,34 +1,58 @@
 .List-Container {
-	height: 83vh;
-	margin-right: 20px;
-	border-radius: 15px;
-	background-color: transparent;
-	box-shadow: 0px 0px 12px rgb(255, 255, 255);
+  height: 83vh;
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  box-shadow: 0px 0px 12px rgb(255, 255, 255);
 }
 
 table {
-	width: 100%;
-	border-collapse: collapse;
-	margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
 
 th,
 td {
-	border: 1px solid #ddd;
-	padding: 8px;
-	text-align: left;
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
 }
 
 th {
-	color: white;
+  color: white;
 }
 
-button {
-	margin-left: 20px;
-	cursor: pointer;
-	padding: 5px 10px;
-	background-color: #2ecc71;
-	color: white;
-	border: none;
-	border-radius: 3px;
+.updtBtn {
+  margin-left: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: #2ecc71;
+  color: white;
+  border: 1px solid #2ecc71;
+  border-radius: 3px;
+}
+
+.updtBtn:hover {
+  background-color: transparent;
+  border: 1px solid #2ecc71;
+  transition: 0.2s ease-in-out;
+  color: #2ecc71;
+}
+
+.dltBtn {
+  margin-left: 20px;
+  cursor: pointer;
+  padding: 5px 10px;
+  background-color: rgb(252, 61, 61);
+  color: white;
+  border: 1px solid rgb(252, 61, 61);
+  border-radius: 3px;
+}
+
+.dltBtn:hover {
+  background-color: transparent;
+  border: 1px solid rgb(252, 61, 61);
+  transition: 0.2s ease-in;
+  color: rgb(252, 61, 61);
 }

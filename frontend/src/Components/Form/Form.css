@@ -1,55 +1,60 @@
 .Form-Container {
-	height: 72vh;
-	margin-right: 20px;
-	border-radius: 15px;
-	background-color: transparent;
-	box-shadow: 0px 0px 12px rgb(255, 255, 255);
-	padding: 50px;
+  height: 72vh;
+  margin-right: 20px;
+  border-radius: 15px;
+  background-color: transparent;
+  box-shadow: 0px 0px 12px rgb(255, 255, 255);
+  padding: 50px;
 }
 /* EmployeeForm.css */
 .Employee-Form {
-	max-width: 800px;
-	background-color: transparent;
+  max-width: 800px;
+  background-color: transparent;
 }
 
 form {
-	display: flex;
-	flex-direction: column;
-	background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
 }
 
 label {
-	margin-bottom: 5px;
-	color: aliceblue;
-	font-size: 16px;
+  margin-bottom: 5px;
+  color: aliceblue;
+  font-size: 16px;
 }
 
 input {
-	margin-bottom: 10px;
-	padding: 15px 8px;
-	border: 1px solid white;
-	background-color: transparent;
-	border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 15px 8px;
+  border: 1px solid white;
+  background-color: transparent;
+  border-radius: 5px;
 }
 
 .submit_btn {
-	background-color: #2ecc71;
-	width: 35%;
-	display: flex-end;
-	color: white;
-	padding: 15px 0px;
-	border: none;
-	font-size: 15px;
-	cursor: pointer;
+  background-color: #27ae60;
+  width: 35%;
+  display: flex-end;
+  color: white;
+  padding: 8px 0px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: 10px solid #27ae60;
 }
 
 .submit_btn:hover {
-	background-color: #27ae60;
+  background: none;
+  border: 2px solid #27ae60;
+  height: 53px;
+  transition: 0.3s ease-in-out;
 }
 
 .button-container {
-	display: flex;
-	justify-content: flex-end;
-	padding: 0;
-	margin: 0;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0;
+  margin: 0;
 }
