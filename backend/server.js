@@ -8,12 +8,14 @@ dbConnection();
 const PORT = process.env.PORT || 5001;
 
 //middlewares
+//Node.js DOS
+//Security Misconfigurations
 app.use(cors());
 app.use(express.json());
 app.use("/api/v1/employee", require("../backend/routes/EmpRoutes"));
 
 app.listen(PORT, () => {
-  console.log("server running");
+	console.log("server running");
 });
 
 module.exports = app;

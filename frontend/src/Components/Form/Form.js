@@ -23,7 +23,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 			}
 		);
 	}, [employee]);
-
+	//React XSS
 	const handleChange = (e) => {
 		setFormData({
 			...formData,
@@ -62,6 +62,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="text"
 						id="name"
 						name="name"
+						// REACT XSS
 						value={formData.name}
 						onChange={handleChange}
 					/>
@@ -71,6 +72,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="number"
 						id="age"
 						name="age"
+						// REACT XSS
 						value={formData.age}
 						onChange={handleChange}
 					/>
@@ -80,6 +82,7 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 						type="tel"
 						id="phone"
 						name="phone"
+						// REACT XSS
 						value={formData.phone}
 						onChange={handleChange}
 					/>
