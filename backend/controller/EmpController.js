@@ -41,6 +41,8 @@ const CreateEmployees = async (req, res) => {
 	}
 
 	try {
+		//Insecure Authentication
+		//Sensitive Data Exposure
 		const employe = await Employee.create({
 			name,
 			age,
