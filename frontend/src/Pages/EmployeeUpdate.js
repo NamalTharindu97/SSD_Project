@@ -36,7 +36,7 @@ const EmployeeUpdate = () => {
 
 			if (response) {
 				console.log(response.data);
-				navigate("/");
+				navigate("/dash");
 			}
 		} catch (error) {
 			console.error(error);
