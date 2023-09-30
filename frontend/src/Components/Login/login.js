@@ -20,7 +20,7 @@ const Login = () => {
 			console.log("Login successful run");
 			if (response.status === 200) {
 				console.log("Login successful");
-				navigate("/");
+				navigate("/dash");
 			} else {
 				console.error("Login failed");
 			}
