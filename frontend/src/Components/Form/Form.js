@@ -98,9 +98,14 @@ const Form = ({ addEmployee, employee, updateEmploye }) => {
 			return false;
 		}
 
-		// Validate password (at least 8 characters)
-		if (!validator.isLength(data.password, { min: 8 })) {
-			console.error("Password must be at least 8 characters");
+		//use Strong password policies for privent insecure authentication
+		// Validate password (at least 8 characters, with at least one uppercase letter, one lowercase letter, one digit, and one special character)
+		const passwordRegex =
+			/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{8,}$/;
+		if (!passwordRegex.test(data.password)) {
+			console.error(
+				"Password must be strong: at least 8 characters, with at least one uppercase letter, one lowercase letter, one digit, and one special character"
+			);
 			return false;
 		}
 
