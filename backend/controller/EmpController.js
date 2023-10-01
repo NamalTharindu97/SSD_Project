@@ -1,4 +1,6 @@
 const Employee = require("../models/employeeModel");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 // @desc Get All the employees
 // @Route http://localhost:5000/api/v1/employee/
@@ -43,13 +45,16 @@ const CreateEmployees = async (req, res) => {
 	try {
 		//Insecure Authentication
 		//Sensitive Data Exposure
+		//store password secure for privent Insecure Authentication vulnarability and Sensitive Data Exposure
+		const hashedPassword = await bcrypt.hash(password, 10);
+
 		const employe = await Employee.create({
 			name,
 			age,
 			phone,
 			nic,
 			email,
-			password,
+			password: hashedPassword,
 		});
 		res.status(200).json(employe);
 	} catch (error) {
@@ -103,15 +108,20 @@ const login = async (req, res) => {
 	const { email, password } = req.body;
 
 	try {
-		const employee = await Employee.findOne({ email, password });
+		const employee = await Employee.findOne({ email });
 
-		if (!employee) {
+		if (!employee || !(await bcrypt.compare(password, employee.password))) {
 			return res.status(401).json({ error: "Invalid credentials" });
 		}
+		//use JWT token to privent Insecure Direct Object References (IDOR) vulnarability
+		// Generate a JWT token
+		const token = jwt.sign(
+			{ userId: employee._id, email: employee.email },
+			process.env.JWT_SECRET,
+			{ expiresIn: "1h" } // Token expiration time
+		);
 
-		// Set a cookie upon successful login
-		req.session.user = employee;
-		res.cookie("user", employee, { httpOnly: true }); // Include this line
+		res.cookie("token", token, { httpOnly: true });
 
 		res.status(200).json({ message: "Login successful" });
 	} catch (error) {
