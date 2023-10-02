@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import SidePanel from '../Components/SidePanel/SidePanel';
-import NavBar from '../Components/NavBar/NavBar';
 import Form from '../Components/Form/Form';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';

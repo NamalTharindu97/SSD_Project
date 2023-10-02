@@ -1,181 +1,211 @@
-import React, { useEffect, useState } from "react";
-import validator from "validator";
-import "./Form.css";
+import React, { useEffect, useState } from 'react';
+import validator from 'validator';
+import './Form.css';
+import ReactFileReader from 'react-file-reader';
 
 const Form = ({ addEmployee, employee, updateEmploye }) => {
-	const [formData, setFormData] = useState({
-		name: "",
-		age: 0,
-		phone: "",
-		nic: "",
-		email: "",
-		password: "",
-	});
+  const [formData, setFormData] = useState({
+    name: '',
+    age: 0,
+    phone: '',
+    nic: '',
+    email: '',
+    password: '',
+    image: '',
+  });
 
-	useEffect(() => {
-		setFormData(
-			employee || {
-				name: "",
-				age: 0,
-				phone: "",
-				nic: "",
-				email: "",
-				password: "",
-			}
-		);
-	}, [employee]);
+  useEffect(() => {
+    setFormData(
+      employee || {
+        name: '',
+        age: 0,
+        phone: '',
+        nic: '',
+        email: '',
+        password: '',
+        image: '',
+      }
+    );
+  }, [employee]);
 
-	const handleChange = (e) => {
-		const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-		// Validate and sanitize inputs using validator to prevent XSS attacks
-		const sanitizedValue = validator.escape(value);
+    // Validate and sanitize inputs using validator to prevent XSS attacks
+    const sanitizedValue = validator.escape(value);
 
-		setFormData({
-			...formData,
-			[name]: sanitizedValue,
-		});
-	};
+    setFormData({
+      ...formData,
+      [name]: sanitizedValue,
+    });
+  };
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+  const handleImageUpload = (files) => {
+    const file = files[0];
 
-		// Perform input validation before submitting for preventing XSS attacks
-		if (!isValidData(formData)) {
-			console.error("Invalid form data");
-			return;
-		}
+    if (!file) {
+      return;
+    }
 
-		try {
-			if (employee) {
-				await updateEmploye(formData);
-			} else if (addEmployee) {
-				await addEmployee(formData);
-				setFormData({
-					name: "",
-					age: 0,
-					phone: "",
-					nic: "",
-					email: "",
-					password: "",
-				});
-			}
-		} catch (error) {
-			console.error("Error handling form submission:", error);
-		}
-	};
+    const reader = new FileReader();
 
-	const isValidData = (data) => {
-		// Validate name (non-empty)
-		if (!validator.isLength(data.name.trim(), { min: 1 })) {
-			console.error("Name is required");
-			return false;
-		}
+    reader.onload = function (event) {
+      const imageData = event.target.result;
+      setFormData({
+        ...formData,
+        image: imageData,
+      });
+    };
 
-		// Validate age (positive integer)
-		if (!validator.isInt(String(data.age), { min: 1 })) {
-			console.error("Invalid age");
-			return false;
-		}
+    reader.readAsDataURL(file);
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-		// Validate phone number (numeric with optional + symbol)
-		if (
-			!validator.isMobilePhone(data.phone, "any", { strictMode: false })
-		) {
-			console.error("Invalid phone number");
-			return false;
-		}
+    // Perform input validation before submitting for preventing XSS attacks
+    if (!isValidData(formData)) {
+      console.error('Invalid form data');
+      return;
+    }
 
-		// Validate NIC (alphanumeric)
-		if (!validator.isAlphanumeric(data.nic)) {
-			console.error("Invalid NIC");
-			return false;
-		}
+    try {
+      if (employee) {
+        await updateEmploye(formData);
+      } else if (addEmployee) {
+        await addEmployee(formData);
+        setFormData({
+          name: '',
+          age: 0,
+          phone: '',
+          nic: '',
+          email: '',
+          password: '',
+          image: '',
+        });
+      }
+    } catch (error) {
+      console.error('Error handling form submission:', error);
+    }
+  };
 
-		// Validate email format
-		if (!validator.isEmail(data.email)) {
-			console.error("Invalid email format");
-			return false;
-		}
+  const isValidData = (data) => {
+    // Validate name (non-empty)
+    if (!validator.isLength(data.name.trim(), { min: 1 })) {
+      console.error('Name is required');
+      return false;
+    }
 
-		// Validate password (at least 8 characters)
-		if (!validator.isLength(data.password, { min: 8 })) {
-			console.error("Password must be at least 8 characters");
-			return false;
-		}
+    // Validate age (positive integer)
+    if (!validator.isInt(String(data.age), { min: 1 })) {
+      console.error('Invalid age');
+      return false;
+    }
 
-		return true;
-	};
+    // Validate phone number (numeric with optional + symbol)
+    if (!validator.isMobilePhone(data.phone, 'any', { strictMode: false })) {
+      console.error('Invalid phone number');
+      return false;
+    }
 
-	return (
-		<div className="Form-Container">
-			<div className="Employee-Form">
-				<form onSubmit={handleSubmit}>
-					<label htmlFor="name">Name:</label>
-					<input
-						type="text"
-						id="name"
-						name="name"
-						//use 'defaultValue' insted of 'value' for privent XSS attacks
-						defaultValue={formData.name}
-						onChange={handleChange}
-					/>
+    // Validate NIC (alphanumeric)
+    if (!validator.isAlphanumeric(data.nic)) {
+      console.error('Invalid NIC');
+      return false;
+    }
 
-					<label htmlFor="age">Age:</label>
-					<input
-						type="number"
-						id="age"
-						name="age"
-						//use 'defaultValue' insted of 'value' for privent XSS attacks
-						defaultValue={formData.age}
-						onChange={handleChange}
-					/>
+    // Validate email format
+    if (!validator.isEmail(data.email)) {
+      console.error('Invalid email format');
+      return false;
+    }
 
-					<label htmlFor="phone">Phone:</label>
-					<input
-						type="tel"
-						id="phone"
-						name="phone"
-						defaultValue={formData.phone}
-						onChange={handleChange}
-					/>
+    // Validate password (at least 8 characters)
+    if (!validator.isLength(data.password, { min: 8 })) {
+      console.error('Password must be at least 8 characters');
+      return false;
+    }
 
-					<label htmlFor="nic">NIC:</label>
-					<input
-						type="text"
-						id="nic"
-						name="nic"
-						defaultValue={formData.nic}
-						onChange={handleChange}
-					/>
+    return true;
+  };
 
-					<label htmlFor="email">Email:</label>
-					<input
-						type="email"
-						id="email"
-						name="email"
-						defaultValue={formData.email}
-						onChange={handleChange}
-					/>
+  return (
+    <div className="Form-Container">
+      <div className="Employee-Form">
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            defaultValue={formData.name}
+            onChange={handleChange}
+          />
 
-					<label htmlFor="password">Password:</label>
-					<input
-						type="password"
-						id="password"
-						name="password"
-						defaultValue={formData.password}
-						onChange={handleChange}
-					/>
+          <label htmlFor="age">Age:</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            defaultValue={formData.age}
+            onChange={handleChange}
+          />
 
-					<div className="button-container">
-						<button type="submit" className="submit_btn">
-							Add Employee
-						</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	);
+          <label htmlFor="phone">Phone:</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            defaultValue={formData.phone}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="nic">NIC:</label>
+          <input
+            type="text"
+            id="nic"
+            name="nic"
+            defaultValue={formData.nic}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            defaultValue={formData.email}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            defaultValue={formData.password}
+            onChange={handleChange}
+          />
+
+          <label htmlFor="image">Image:</label>
+          <ReactFileReader
+            base64={true}
+            handleFiles={handleImageUpload}
+            fileTypes={['.jpg', '.jpeg', '.png', '.gif']}
+          >
+            <button className="loginBtn" type="button">
+              Upload Image
+            </button>
+          </ReactFileReader>
+
+          <div className="button-container">
+            <button type="submit" className="submit_btn">
+              Add Employee
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default Form;

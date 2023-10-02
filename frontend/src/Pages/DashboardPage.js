@@ -1,7 +1,6 @@
 // DashboardPage.js
 import React, { useEffect, useState } from 'react';
 import SidePanel from '../Components/SidePanel/SidePanel';
-import NavBar from '../Components/NavBar/NavBar';
 import List from '../Components/List/List';
 import axios from 'axios';
 
