@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const employeeScheema = mongoose.Schema({
   name: {
@@ -19,6 +19,9 @@ const employeeScheema = mongoose.Schema({
   password: {
     type: String,
   },
+  image: {
+    type: String,
+  },
 });
 
-module.exports = mongoose.model("Employee", employeeScheema);
+module.exports = mongoose.model('Employee', employeeScheema);
